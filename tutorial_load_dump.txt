@@ -1,0 +1,13 @@
+Link para o arquivo de dump: https://drive.google.com/open?id=1VNDVMmlzgfW-ZTecJycXtojjPXt0yjyW
+
+Para carregar o dump do banco de dados é preciso desligar o serviço do Neo4j
+
+$ neo4j stop
+
+e então carregá-lo de fato (o diretório é sem as chaves e por estamos usando o parâmetro --force qualquer banco de dados com o nome graph.db já existente será sobreescrito)
+
+$ neo4j-admin load --from={diretorio_dump} --database=graph.db --force
+
+Por fim é preciso iniciar o serviço do Neo4j novamente
+
+$ neo4j start

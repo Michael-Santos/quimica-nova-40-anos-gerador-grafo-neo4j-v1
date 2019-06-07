@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Neovis.js Simple Example</title>
+        <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
+        <style type="text/css">
+            html, body {
+                font: 16pt arial;
+            }
+    
+            #viz {
+                width: 900px;
+                height: 700px;
+                border: 1px solid lightgray;
+                font: 22pt arial;
+            }
+        </style>
+        <script type="text/javascript">
+
+            var viz;
+    
+            function draw() {
+                var config = {
+                    container_id: "viz",
+                    server_url: "bolt://localhost:7687",
+                    server_user: "neo4j",
+                    server_password: "1234",
+                    labels: {
+                        "Keyword": {
+                            "caption": "keyword",
+                            "size": "numOccurrences",
+                            "community": "community"
+                        }
+                    },
+                    relationships: {
+                        "Rel": {
+                            //"thickness": "weight",
+                            "caption": false
+                        }
+                    },
+                    
+                    // Exibir todos os nós e relacionamentos
+                    //initial_cypher: "MATCH (n)-[r:Rel]-(m) return *"
+                    
+                    // Exibir os nós e relaionamentos da comunidade 76
+                    //initial_cypher: "MATCH (n)-[r:Rel]-(m) WHERE n.community = 76 AND m.community = 76 RETURN *"
+                    
+                    // Exibir os pares que nós que mais se relacionam
+                    //initial_cypher: "MATCH (n)-[r]-(m) WITH n, m, COLLECT(r) AS rels ORDER BY SIZE(rels) DESC RETURN n, rels LIMIT 14;"
+                    
+                    // Exibir os nós que possuem são citados mais vezes
+                    //initial_cypher: "MATCH (n) RETURN n ORDER BY n.numOccurrences DESC LIMIT 10"
+                   
+                    // Exibir os nós e relacionamentos das duas maiores comunidades
+                    initial_cypher: "MATCH (n:Keyword) n.keyword CONTAINS \"Viagra\" WITH n.community as community, COUNT(n.community) AS numNodesCommuniy ORDER BY numNodesCommuniy DESC LIMIT 2 MATCH (n:Keyword {community: community})-[r]-() return n, r"
+                
+                };
+    
+                viz = new NeoVis.default(config);
+                viz.render();
+            }
+        </script>
+    </head>
+    <body onload="draw()">
+        <div id="viz"></div>
+    </body>    
+</html>

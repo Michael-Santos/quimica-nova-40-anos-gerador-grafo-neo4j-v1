@@ -1,0 +1,9 @@
+Para conseguir visualizar as informações do banco com Neovis.js primeiramente é preciso ter o Node.js instalado no computador.
+
+Instruções de como instalar o Node.js em: https://nodejs.org/en/
+
+Com o Node.js instalado precisaremos instalar o módulo do Neovis.js:
+
+$ npm install --save neovis.js
+
+Por fim, basta abrir o arquivo visualicao.html
